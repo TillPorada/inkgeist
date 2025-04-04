@@ -1,16 +1,10 @@
 <template>
-    <div id="app">
-      <router-view></router-view>
-    </div>
-  </template>
-  
-  <script lang="ts">
-  export default {
-    name: 'App',
-  }
-  </script>
-  
-  <style lang="scss">
-  /* Hier kannst du globales Styling hinzufügen */
-  </style>
-  
+  <div id="app">
+    <h1>Inkgeist Frontend</h1>
+    <TestAPI />
+  </div>
+</template>
+
+<script setup lang="ts">
+import TestAPI from '@/components/TestApi.vue'
+</script>
