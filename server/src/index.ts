@@ -11,13 +11,14 @@ const PORT = process.env.PORT || 5000
 app.use(cors())
 app.use(express.json())
 
-app.get('/', (_req, res) => {
-  res.send('Inkgeist Backend läuft 🎉')
+// Testendpunkt
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Hello from backend!' })
 })
 
-mongoose.connect(process.env.MONGO_URI || '')
+mongoose.connect(process.env.MONGODB_URI || '')
   .then(() => {
-    console.log('✅ MongoDB verbunden')
-    app.listen(PORT, () => console.log(`🚀 Server läuft auf http://localhost:${PORT}`))
+    console.log('✅ MongoDB connected')
+    app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`))
   })
-  .catch(err => console.error('❌ Fehler bei MongoDB Verbindung:', err))
+  .catch(err => console.error('❌ MongoDB connection error:', err))
