@@ -13,7 +13,7 @@
   const fetchTest = async () => {
     try {
       // Ersetze diese URL mit der öffentlichen URL deines Railway-Backends
-      const response = await fetch('https://dein-backend-url/api/test')
+      const response = await fetch('https://https://inkgeist-production.up.railway.app/api/test')
       const data = await response.json()
       message.value = data.message
     } catch (error) {
