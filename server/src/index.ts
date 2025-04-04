@@ -16,7 +16,7 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'Hello from backend!' })
 })
 
-mongoose.connect(process.env.MONGODB_URI || '')
+mongoose.connect(process.env.MONGO_URI || '')
   .then(() => {
     console.log('✅ MongoDB connected')
     app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`))
