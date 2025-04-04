@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "ESNext",
+      "moduleResolution": "node",
+      "jsx": "preserve",
+      "esModuleInterop": true,
+      "allowJs": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "baseUrl": "src", 
+      "paths": {
+        "@/*": ["*"]
+      }
+    },
+    "include": [
+      "src/**/*"
+    ]
+  }
+  
