@@ -11,8 +11,8 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: 'https://coruscating-entremet-c434b8.netlify.app', // oder '*' für alles
-  credentials: true, // falls du mit Cookies/Session arbeiten willst
+  origin: '*', // oder '*' für alles
+  //credentials: true, // falls du mit Cookies/Session arbeiten willst
 }));
 
 // MongoDB Verbindung
