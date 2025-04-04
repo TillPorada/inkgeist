@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.updateUser = exports.getUser = exports.createUser = void 0;
+exports.deleteUser = exports.updateUser = exports.getUsers = exports.getUser = exports.createUser = void 0;
 const User_1 = __importDefault(require("../models/User"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -26,10 +26,10 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             password: hashedPassword,
         });
         yield newUser.save();
-        res.status(201).json({ message: 'User created successfully' });
+        res.status(201).json({ message: "User created successfully" });
     }
     catch (error) {
-        res.status(500).json({ message: 'Error creating user', error });
+        res.status(500).json({ message: "Error creating user", error });
     }
 });
 exports.createUser = createUser;
@@ -38,16 +38,26 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield User_1.default.findById(userId);
         if (!user) {
-            res.status(404).json({ message: 'User not found' });
+            res.status(404).json({ message: "User not found" });
             return; // Hier return, um die weitere Ausführung zu stoppen
         }
         res.status(200).json(user);
     }
     catch (error) {
-        res.status(500).json({ message: 'Error retrieving user', error });
+        res.status(500).json({ message: "Error retrieving user", error });
     }
 });
 exports.getUser = getUser;
+const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const users = yield User_1.default.find();
+        res.status(200).json(users);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Error fetching users", error });
+    }
+});
+exports.getUsers = getUsers;
 const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.params.id;
     const { name, email, password } = req.body;
@@ -60,13 +70,13 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             new: true,
         });
         if (!user) {
-            res.status(404).json({ message: 'User not found' });
+            res.status(404).json({ message: "User not found" });
             return; // Return verhindert weiteres Ausführen
         }
         res.status(200).json(user);
     }
     catch (error) {
-        res.status(500).json({ message: 'Error updating user', error });
+        res.status(500).json({ message: "Error updating user", error });
     }
 });
 exports.updateUser = updateUser;
@@ -75,13 +85,13 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const user = yield User_1.default.findByIdAndDelete(userId);
         if (!user) {
-            res.status(404).json({ message: 'User not found' });
+            res.status(404).json({ message: "User not found" });
             return; // Return verhindert weiteres Ausführen
         }
-        res.status(200).json({ message: 'User deleted successfully' });
+        res.status(200).json({ message: "User deleted successfully" });
     }
     catch (error) {
-        res.status(500).json({ message: 'Error deleting user', error });
+        res.status(500).json({ message: "Error deleting user", error });
     }
 });
 exports.deleteUser = deleteUser;
