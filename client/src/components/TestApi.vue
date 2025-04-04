@@ -1,31 +1,44 @@
 <template>
-    <div>
-      <button @click="fetchTest">Test API Endpoint</button>
-      <p>{{ message }}</p>
-    </div>
+    <v-container>
+      <v-form @submit.prevent="createUser">
+        <v-text-field v-model="user.name" label="Name" required></v-text-field>
+        <v-text-field v-model="user.email" label="Email" type="email" required></v-text-field>
+        <v-text-field v-model="user.password" label="Password" type="password" required></v-text-field>
+        <v-btn type="submit" color="primary">Create User</v-btn>
+      </v-form>
+    </v-container>
   </template>
   
-  <script setup lang="ts">
-  import { ref } from 'vue'
+  <script setup>
+  import { ref } from 'vue';
   
-  const message = ref('')
+  const user = ref({
+    name: '',
+    email: '',
+    password: '',
+  });
   
-  const fetchTest = async () => {
+  const createUser = async () => {
     try {
-      // Ersetze diese URL mit der öffentlichen URL deines Railway-Backends
-      const response = await fetch('https://inkgeist-production.up.railway.app/api/test')
-      const data = await response.json()
-      message.value = data.message
+      const response = await fetch('https://inkgeist-production.up.railway.app/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user.value),
+      });
+      if (response.ok) {
+        alert('User created successfully');
+      } else {
+        alert('Error creating user');
+      }
     } catch (error) {
-      message.value = 'Error fetching API'
-      console.error(error)
+      console.error('Error:', error);
+      alert('Error creating user');
     }
-  }
+  };
   </script>
   
   <style scoped>
-  button {
-    padding: 8px 16px;
-    font-size: 16px;
-  }
-  </style>  
+  /* Optional Styles */
+  </style>
