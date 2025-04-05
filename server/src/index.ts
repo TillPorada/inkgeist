@@ -3,6 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes';
+import authRoutes from './routes/authRoutes';
 import cors from 'cors';
 
 dotenv.config();
@@ -22,6 +23,8 @@ mongoose.connect(process.env.MONGO_URI as string)
 
 // Benutzer-Routen einbinden
 app.use('/api', userRoutes);
+app.use('/api/auth', authRoutes);
+
 
 // Starten der Anwendung
 const port = process.env.PORT || 5000;

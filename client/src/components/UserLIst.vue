@@ -71,8 +71,7 @@
     <!-- Snackbar für Status -->
     <v-snackbar v-model="snackbar.show" :color="snackbar.color" timeout="3000">
       {{ snackbar.message }}
-    </v-snackbar>
-  </v-container>
+    </v-snackbar>  </v-container>
 </template>
 
 <script setup lang="ts">
