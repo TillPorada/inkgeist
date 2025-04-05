@@ -1,13 +1,30 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/Home.vue'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
-const routes = [
-  { path: '/', component: Home }
-]
+const routes: RouteRecordRaw[] = [
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/Login.vue'),
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import('@/views/Dashboard.vue'),
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        next();
+      } else {
+        next('/login');
+      }
+    },
+  },
+  // Weitere Routen hier...
+];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
