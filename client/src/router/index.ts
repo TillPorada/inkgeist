@@ -1,41 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Login from '@/views/Login.vue';
-import Dashboard from '@/views/Dashboard.vue';
-import UserList from '@/components/UserLIst.vue'; // Beispiel für die User List
+import Login from '../views/Login.vue'; // Importiere Login View
+import Dashboard from '../views/Dashboard.vue'; // Importiere Dashboard View
 
 const routes = [
   {
     path: '/login',
     name: 'login',
-    component: Login,
+    component: Login,  // Login View
   },
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: Dashboard,
-    beforeEnter: (to, from, next) => {
-      const token = localStorage.getItem('authToken');
-      if (token) {
-        next();
-      } else {
-        next('/login'); // Redirect to login if no token found
-      }
-    },
-  },
-  {
-    path: '/userList',
-    name: 'userList',
-    component: UserList,
+    component: Dashboard,  // Dashboard View
   },
   {
     path: '/',
-    redirect: '/login', // Standardroute, die beim Start auf den Login-View führt
+    redirect: '/login',  // Standardroute auf Login
   },
-  // Weitere Routen hier...
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(), // Verwendet HTML5 History Mode
   routes,
 });
 
