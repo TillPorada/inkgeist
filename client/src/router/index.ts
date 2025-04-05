@@ -1,14 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Login from '../views/Login.vue'; // Importiere Login View
-import Dashboard from '../views/Dashboard.vue'; // Importiere Dashboard View
-import RegisterView from '../views/Register.vue';  // Importiere die RegisterView
-import Profile from '../views/Profile.vue'; // Importiere die Profil-Seite
-import Settings from '../views/Settings.vue'; // Importiere die Einstellungs-Seite
-import Chat from '../views/Chat.vue'; // Importiere die Chat-Seite
-import Graphics from '../views/Grafik.vue'; // Importiere die Grafik-Seite
-import Audio from '../views/Audio.vue'; // Importiere die Audio-Seite
-import Translator from '../views/Translator.vue'; // Importiere die Übersetzer-Seite
-import Converter from '../views/Converter.vue'; // Importiere die Konvertieren-Seite
+import DefaultLayout from '@/layouts/DefaultLayout.vue'; // Du musst dieses Layout erstellen
+import Login from '@/views/Login.vue';
+import RegisterView from '@/views/Register.vue';
+
+import Dashboard from '@/views/Dashboard.vue';
+import Profile from '@/views/Profile.vue';
+import Settings from '@/views/Settings.vue';
+import Chat from '@/views/Chat.vue';
+import Graphics from '@/views/Grafik.vue';
+import Audio from '@/views/Audio.vue';
+import Translator from '@/views/Translator.vue';
+import Converter from '@/views/Converter.vue';
 
 const requireAuth = (to: any, from: any, next: any) => {
   if (!localStorage.getItem('authToken')) {
@@ -19,72 +21,74 @@ const requireAuth = (to: any, from: any, next: any) => {
 };
 
 const routes = [
+  // Seiten ohne Layout (z.B. Login & Register)
   {
     path: '/login',
     name: 'login',
-    component: Login,  // Login View
+    component: Login,
   },
   {
-    path: '/register',  // Route für Registration
+    path: '/register',
     name: 'register',
     component: RegisterView,
   },
-  {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: Dashboard,  // Dashboard View
-    beforeEnter: requireAuth,  // Schütze die Route
-  },
-  {
-    path: '/profile',  // Neue Route für Profil
-    name: 'profile',
-    component: Profile,  // Profil View
-    beforeEnter: requireAuth,  // Schütze die Route
-  },
-  {
-    path: '/settings',  // Neue Route für Einstellungen
-    name: 'settings',
-    component: Settings,  // Settings View
-    beforeEnter: requireAuth,  // Schütze die Route
-  },
-  {
-    path: '/chat',  // Neue Route für Chat
-    name: 'chat',
-    component: Chat,
-    beforeEnter: requireAuth,  // Schütze die Route
-  },
-  {
-    path: '/graphics',  // Neue Route für Grafik
-    name: 'graphics',
-    component: Graphics,
-    beforeEnter: requireAuth,  // Schütze die Route
-  },
-  {
-    path: '/audio',  // Neue Route für Audio
-    name: 'audio',
-    component: Audio,
-    beforeEnter: requireAuth,  // Schütze die Route
-  },
-  {
-    path: '/translator',  // Neue Route für Übersetzer
-    name: 'translator',
-    component: Translator,
-    beforeEnter: requireAuth,  // Schütze die Route
-  },
-  {
-    path: '/converter',  // Neue Route für Konvertieren
-    name: 'converter',
-    component: Converter,
-    beforeEnter: requireAuth,  // Schütze die Route
-  },
+
+  // Layout mit geschützten Seiten
   {
     path: '/',
-    redirect: '/login',  // Standardroute auf Login
+    component: DefaultLayout,
+    beforeEnter: requireAuth,
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard',
+        component: Dashboard,
+      },
+      {
+        path: 'profile',
+        name: 'profile',
+        component: Profile,
+      },
+      {
+        path: 'settings',
+        name: 'settings',
+        component: Settings,
+      },
+      {
+        path: 'chat',
+        name: 'chat',
+        component: Chat,
+      },
+      {
+        path: 'graphics',
+        name: 'graphics',
+        component: Graphics,
+      },
+      {
+        path: 'audio',
+        name: 'audio',
+        component: Audio,
+      },
+      {
+        path: 'translator',
+        name: 'translator',
+        component: Translator,
+      },
+      {
+        path: 'converter',
+        name: 'converter',
+        component: Converter,
+      },
+      {
+        path: '',
+        redirect: '/dashboard',
+      },
+    ],
   },
 ];
 
 const router = createRouter({
-  history: createWebHistory(), // Verwendet HTML5 History Mode
+  history: createWebHistory(),
   routes,
 });
 
