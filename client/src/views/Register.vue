@@ -36,7 +36,7 @@
   
   const registerUser = async () => {
     try {
-      const response = await axios.post('https://coruscating-entremet-c434b8.netlify.app/api/users', { // API-Route zur Erstellung des Benutzers
+      const response = await axios.post('https://inkgeist-production.up.railway.app/api/users', { // API-Route zur Erstellung des Benutzers
         name: name.value,
         email: email.value,
         password: password.value,
