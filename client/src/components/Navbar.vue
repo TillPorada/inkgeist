@@ -1,24 +1,34 @@
 <template>
-    <v-app-bar app>
-      <v-btn icon @click="toggleSidebar">
+    <v-app-bar app color="primary" dark :class="{ 'dark-theme': dark }">
+      <!-- Button zum Ein- und Ausklappen der Sidebar -->
+      <v-btn @click="toggleSidebar" icon>
         <v-icon>mdi-menu</v-icon>
       </v-btn>
-      <v-spacer></v-spacer>
-      <v-menu offset-y>
-        <template #activator="{ on, attrs }">
-          <v-avatar v-bind="attrs" v-on="on" size="40">
-            <v-img src="https://www.example.com/avatar.png" alt="User Avatar" />
-          </v-avatar>
-        </template>
+  
+      <v-toolbar-title>Mein Dashboard</v-toolbar-title>
+      <v-spacer />
+  
+      <!-- Darkmode-Toggle -->
+      <v-btn @click="toggleDarkMode" color="white">
+        <v-icon>mdi-theme-light-dark</v-icon>
+      </v-btn>
+  
+      <!-- Avatar für den User -->
+      <v-avatar size="40" class="avatar" @click="toggleMenu">
+        <v-img src="https://cdn.vuetifyjs.com/images/john.jpg" />
+      </v-avatar>
+  
+      <!-- Dropdown-Menü für Avatar -->
+      <v-menu v-model="menu" offset-y :nudge-width="40">
         <v-list>
           <v-list-item @click="goToProfile">
-            <v-list-item-title>Profil ansehen</v-list-item-title>
+            <v-list-item-title>Profile</v-list-item-title>
           </v-list-item>
           <v-list-item @click="goToSettings">
-            <v-list-item-title>Einstellungen</v-list-item-title>
+            <v-list-item-title>Settings</v-list-item-title>
           </v-list-item>
           <v-list-item @click="logout">
-            <v-list-item-title>Ausloggen</v-list-item-title>
+            <v-list-item-title>Logout</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -26,29 +36,40 @@
   </template>
   
   <script lang="ts" setup>
-  import { useRouter } from 'vue-router';
+  import { ref } from "vue";
+  import { useRouter } from "vue-router";
+  import { useAppStore } from "@/store/appStore"; // Store importieren
   
+  const menu = ref(false); // Dropdown für Avatar
   const router = useRouter();
   
+  const { toggleSidebar, toggleDarkMode, darkMode } = useAppStore(); // Store-Methoden verwenden
+  
+  // Avatar-Menü umschalten
+  const toggleMenu = () => {
+    menu.value = !menu.value;
+  };
+  
   const goToProfile = () => {
-    router.push('/profile');
+    router.push("/profile");
   };
   
   const goToSettings = () => {
-    router.push('/settings');
+    router.push("/settings");
   };
   
   const logout = () => {
-    localStorage.removeItem('authToken');
-    window.location.href = '/login';
-  };
-  
-  const toggleSidebar = () => {
-    // Hier wird das Sidebar-Management umgeschaltet
+    localStorage.removeItem("authToken");
+    router.push("/login");
   };
   </script>
   
-  <style scoped>
-  /* Navbar Styles */
+  <style scoped lang="scss">
+  .dark-theme {
+    background-color: #333 !important;
+  }
+  .avatar {
+    cursor: pointer; /* Avatar als klickbar kennzeichnen */
+  }
   </style>
   

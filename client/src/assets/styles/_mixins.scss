@@ -2,20 +2,31 @@
 
 /* Flexbox Mixins */
 @mixin flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Button-Styles für Hover */
+@mixin button-hover($color) {
+  &:hover {
+    background-color: darken($color, 10%);
   }
-  
-  /* Button-Styles für Hover */
-  @mixin button-hover($color) {
-    &:hover {
-      background-color: darken($color, 10%);
-    }
-  }
-  
-  /* Sidebar Mini-Variant */
-  @mixin sidebar-mini {
-    width: $sidebar-mini-width;
-  }
-  
+}
+
+/* Sidebar Mini-Variant */
+@mixin sidebar-mini {
+  width: $sidebar-mini-width;
+}
+
+// Mixin für Dark Mode Styles
+@mixin darkmode {
+  background-color: $background-color-dark;
+  color: $text-color;
+}
+
+// Mixin für Light Mode Styles
+@mixin lightmode {
+  background-color: $background-color-light;
+  color: $text-color;
+}
