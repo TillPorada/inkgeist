@@ -23,7 +23,7 @@ mongoose.connect(process.env.MONGO_URI as string)
 
 // Benutzer-Routen einbinden
 app.use('/api', userRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/api', authRoutes);
 
 
 // Starten der Anwendung
