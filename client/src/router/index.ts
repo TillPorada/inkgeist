@@ -1,23 +1,35 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
+import Login from '@/views/Login.vue';
+import Dashboard from '@/views/Dashboard.vue';
+import UserList from '@/components/UserLIst.vue'; // Beispiel für die User List
 
-const routes: RouteRecordRaw[] = [
+const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/Login.vue'),
+    component: Login,
   },
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: () => import('@/views/Dashboard.vue'),
+    component: Dashboard,
     beforeEnter: (to, from, next) => {
       const token = localStorage.getItem('authToken');
       if (token) {
         next();
       } else {
-        next('/login');
+        next('/login'); // Redirect to login if no token found
       }
     },
+  },
+  {
+    path: '/userList',
+    name: 'userList',
+    component: UserList,
+  },
+  {
+    path: '/',
+    redirect: '/login', // Standardroute, die beim Start auf den Login-View führt
   },
   // Weitere Routen hier...
 ];
