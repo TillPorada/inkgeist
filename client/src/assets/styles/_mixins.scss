@@ -1,0 +1,21 @@
+/* _mixins.scss */
+
+/* Flexbox Mixins */
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Button-Styles für Hover */
+  @mixin button-hover($color) {
+    &:hover {
+      background-color: darken($color, 10%);
+    }
+  }
+  
+  /* Sidebar Mini-Variant */
+  @mixin sidebar-mini {
+    width: $sidebar-mini-width;
+  }
+  
